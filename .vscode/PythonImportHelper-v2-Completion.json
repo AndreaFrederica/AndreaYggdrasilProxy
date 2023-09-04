@@ -1,0 +1,478 @@
+[
+    {
+        "label": "json",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "json",
+        "description": "json",
+        "detail": "json",
+        "documentation": {}
+    },
+    {
+        "label": "module",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "module",
+        "description": "module",
+        "detail": "module",
+        "documentation": {}
+    },
+    {
+        "label": "configIO",
+        "importPath": "module",
+        "description": "module",
+        "isExtraImport": true,
+        "detail": "module",
+        "documentation": {}
+    },
+    {
+        "label": "tools",
+        "importPath": "module",
+        "description": "module",
+        "isExtraImport": true,
+        "detail": "module",
+        "documentation": {}
+    },
+    {
+        "label": "configIO",
+        "importPath": "module",
+        "description": "module",
+        "isExtraImport": true,
+        "detail": "module",
+        "documentation": {}
+    },
+    {
+        "label": "context",
+        "importPath": "module",
+        "description": "module",
+        "isExtraImport": true,
+        "detail": "module",
+        "documentation": {}
+    },
+    {
+        "label": "log",
+        "importPath": "module",
+        "description": "module",
+        "isExtraImport": true,
+        "detail": "module",
+        "documentation": {}
+    },
+    {
+        "label": "tools",
+        "importPath": "module",
+        "description": "module",
+        "isExtraImport": true,
+        "detail": "module",
+        "documentation": {}
+    },
+    {
+        "label": "context",
+        "importPath": "module",
+        "description": "module",
+        "isExtraImport": true,
+        "detail": "module",
+        "documentation": {}
+    },
+    {
+        "label": "loadConfig",
+        "importPath": "module",
+        "description": "module",
+        "isExtraImport": true,
+        "detail": "module",
+        "documentation": {}
+    },
+    {
+        "label": "log",
+        "importPath": "module",
+        "description": "module",
+        "isExtraImport": true,
+        "detail": "module",
+        "documentation": {}
+    },
+    {
+        "label": "loadConfig",
+        "importPath": "module",
+        "description": "module",
+        "isExtraImport": true,
+        "detail": "module",
+        "documentation": {}
+    },
+    {
+        "label": "log",
+        "importPath": "module",
+        "description": "module",
+        "isExtraImport": true,
+        "detail": "module",
+        "documentation": {}
+    },
+    {
+        "label": "configIO",
+        "importPath": "module",
+        "description": "module",
+        "isExtraImport": true,
+        "detail": "module",
+        "documentation": {}
+    },
+    {
+        "label": "context",
+        "importPath": "module",
+        "description": "module",
+        "isExtraImport": true,
+        "detail": "module",
+        "documentation": {}
+    },
+    {
+        "label": "os",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "os",
+        "description": "os",
+        "detail": "os",
+        "documentation": {}
+    },
+    {
+        "label": "config",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "config",
+        "description": "config",
+        "detail": "config",
+        "documentation": {}
+    },
+    {
+        "label": "pyjson5",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "pyjson5",
+        "description": "pyjson5",
+        "detail": "pyjson5",
+        "documentation": {}
+    },
+    {
+        "label": "sys",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "sys",
+        "description": "sys",
+        "detail": "sys",
+        "documentation": {}
+    },
+    {
+        "label": "logger",
+        "importPath": "loguru",
+        "description": "loguru",
+        "isExtraImport": true,
+        "detail": "loguru",
+        "documentation": {}
+    },
+    {
+        "label": "app",
+        "importPath": "main",
+        "description": "main",
+        "isExtraImport": true,
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "requests",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "requests",
+        "description": "requests",
+        "detail": "requests",
+        "documentation": {}
+    },
+    {
+        "label": "Union",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "FastAPI",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "Query",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "Response",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "Config",
+        "kind": 6,
+        "importPath": "module.configIO",
+        "description": "module.configIO",
+        "peekOfCode": "class Config():\n    global path\n    def __init__(self, name: str) -> None:\n        global path\n        self.config: dict = dict()\n        self.config_path = f\"{path}/{name}.json5\"\n        if (os.path.exists(self.config_path)):\n            self.read()\n        pass\n    def __getConfigFileObj(self, mode: str) -> object:",
+        "detail": "module.configIO",
+        "documentation": {}
+    },
+    {
+        "label": "pyBool2Json",
+        "kind": 2,
+        "importPath": "module.configIO",
+        "description": "module.configIO",
+        "peekOfCode": "def pyBool2Json(flag:bool) -> str:\n    if(flag):\n        return \"true\"\n    else:\n        return \"false\"\np2J = pyBool2Json",
+        "detail": "module.configIO",
+        "documentation": {}
+    },
+    {
+        "label": "path",
+        "kind": 5,
+        "importPath": "module.configIO",
+        "description": "module.configIO",
+        "peekOfCode": "path = \"config\"\n# * End Config\nif (not os.path.exists(path)):\n    os.mkdir(path)\nclass Config():\n    global path\n    def __init__(self, name: str) -> None:\n        global path\n        self.config: dict = dict()\n        self.config_path = f\"{path}/{name}.json5\"",
+        "detail": "module.configIO",
+        "documentation": {}
+    },
+    {
+        "label": "p2J",
+        "kind": 5,
+        "importPath": "module.configIO",
+        "description": "module.configIO",
+        "peekOfCode": "p2J = pyBool2Json",
+        "detail": "module.configIO",
+        "documentation": {}
+    },
+    {
+        "label": "init",
+        "kind": 2,
+        "importPath": "module.loadConfig",
+        "description": "module.loadConfig",
+        "peekOfCode": "def init():\n    global server_url_list, enable\n    context.config: configIO.Config = configIO.Config(\n        \"AndreaYggdrasilProxy\")\n    if(not context.config.defaultCheck(\"YggdrasilServers\",\"Enable\",\"IP\",\"Port\")):\n        context.config.setRAW_STR(cstr)\n    context.config.read()\n    enable = context.config[\"enable\"]\n    log.info(\"[Config] Config Loaded\")\ndef loadServers():",
+        "detail": "module.loadConfig",
+        "documentation": {}
+    },
+    {
+        "label": "loadServers",
+        "kind": 2,
+        "importPath": "module.loadConfig",
+        "description": "module.loadConfig",
+        "peekOfCode": "def loadServers():\n    context.YggdrasilServers = list()\n    for server_info in context.config[\"YggdrasilServers\"]:\n        server = tools.YggdrasilServer(\n            level = server_info[\"Level\"],\n            name = server_info[\"Name\"],\n            url = server_info[\"Url\"]\n            )\n        context.YggdrasilServers.append(server)\n    # 使用 sorted() 函数来对列表进行排序，指定 key 参数为 lambda 表达式，表示按照实例的 level 属性来排序",
+        "detail": "module.loadConfig",
+        "documentation": {}
+    },
+    {
+        "label": "enable",
+        "kind": 5,
+        "importPath": "module.loadConfig",
+        "description": "module.loadConfig",
+        "peekOfCode": "enable = False\ncstr = (\n    f\"\"\"{{\n    //* AndreaYggdrasilProxy\n    Enable : true,\n    IP : \"0.0.0.0\",\n    Port : 32217,\n    YggdrasilServers : [\n        {{\n            //! Mojang 官方验证服务器",
+        "detail": "module.loadConfig",
+        "documentation": {}
+    },
+    {
+        "label": "cstr",
+        "kind": 5,
+        "importPath": "module.loadConfig",
+        "description": "module.loadConfig",
+        "peekOfCode": "cstr = (\n    f\"\"\"{{\n    //* AndreaYggdrasilProxy\n    Enable : true,\n    IP : \"0.0.0.0\",\n    Port : 32217,\n    YggdrasilServers : [\n        {{\n            //! Mojang 官方验证服务器\n            Level : 0,",
+        "detail": "module.loadConfig",
+        "documentation": {}
+    },
+    {
+        "label": "debug",
+        "kind": 2,
+        "importPath": "module.log",
+        "description": "module.log",
+        "peekOfCode": "def debug(message: str, *args, **kwargs):\n    logger.debug(message, *args, **kwargs)\ndef info(message: str, *args, **kwargs):\n    logger.info(message, *args, **kwargs)\ndef success(message: str, *args, **kwargs):\n    logger.success(message, *args, **kwargs)\ndef warning(message: str, *args, **kwargs):\n    logger.warning(message, *args, **kwargs)\ndef error(message: str, *args, **kwargs):\n    logger.error(message, *args, **kwargs)",
+        "detail": "module.log",
+        "documentation": {}
+    },
+    {
+        "label": "info",
+        "kind": 2,
+        "importPath": "module.log",
+        "description": "module.log",
+        "peekOfCode": "def info(message: str, *args, **kwargs):\n    logger.info(message, *args, **kwargs)\ndef success(message: str, *args, **kwargs):\n    logger.success(message, *args, **kwargs)\ndef warning(message: str, *args, **kwargs):\n    logger.warning(message, *args, **kwargs)\ndef error(message: str, *args, **kwargs):\n    logger.error(message, *args, **kwargs)\ndef critical(message: str, *args, **kwargs):\n    logger.critical(message, *args, **kwargs) \"\"\"",
+        "detail": "module.log",
+        "documentation": {}
+    },
+    {
+        "label": "success",
+        "kind": 2,
+        "importPath": "module.log",
+        "description": "module.log",
+        "peekOfCode": "def success(message: str, *args, **kwargs):\n    logger.success(message, *args, **kwargs)\ndef warning(message: str, *args, **kwargs):\n    logger.warning(message, *args, **kwargs)\ndef error(message: str, *args, **kwargs):\n    logger.error(message, *args, **kwargs)\ndef critical(message: str, *args, **kwargs):\n    logger.critical(message, *args, **kwargs) \"\"\"",
+        "detail": "module.log",
+        "documentation": {}
+    },
+    {
+        "label": "warning",
+        "kind": 2,
+        "importPath": "module.log",
+        "description": "module.log",
+        "peekOfCode": "def warning(message: str, *args, **kwargs):\n    logger.warning(message, *args, **kwargs)\ndef error(message: str, *args, **kwargs):\n    logger.error(message, *args, **kwargs)\ndef critical(message: str, *args, **kwargs):\n    logger.critical(message, *args, **kwargs) \"\"\"",
+        "detail": "module.log",
+        "documentation": {}
+    },
+    {
+        "label": "error",
+        "kind": 2,
+        "importPath": "module.log",
+        "description": "module.log",
+        "peekOfCode": "def error(message: str, *args, **kwargs):\n    logger.error(message, *args, **kwargs)\ndef critical(message: str, *args, **kwargs):\n    logger.critical(message, *args, **kwargs) \"\"\"",
+        "detail": "module.log",
+        "documentation": {}
+    },
+    {
+        "label": "critical",
+        "kind": 2,
+        "importPath": "module.log",
+        "description": "module.log",
+        "peekOfCode": "def critical(message: str, *args, **kwargs):\n    logger.critical(message, *args, **kwargs) \"\"\"",
+        "detail": "module.log",
+        "documentation": {}
+    },
+    {
+        "label": "log_filename",
+        "kind": 5,
+        "importPath": "module.log",
+        "description": "module.log",
+        "peekOfCode": "log_filename = \"loguru.log\"\nlog_path = \"log\"\nif(not os.path.exists):\n    os.mkdir(log_path)\nlog_fullpath= f\"{log_path}/{log_filename}\"\nlogger.remove(0)\nlogger.add(log_fullpath)\n#logger.add(sys.stderr, format=\"{time} | {level} | {message}\")\nlogger.add(sys.stdout, colorize=True, format=\"<green>{time}</green> <level> | {level} | {message}</level>\")\nlogger.debug(\"Happy logging with Loguru!\")",
+        "detail": "module.log",
+        "documentation": {}
+    },
+    {
+        "label": "log_path",
+        "kind": 5,
+        "importPath": "module.log",
+        "description": "module.log",
+        "peekOfCode": "log_path = \"log\"\nif(not os.path.exists):\n    os.mkdir(log_path)\nlog_fullpath= f\"{log_path}/{log_filename}\"\nlogger.remove(0)\nlogger.add(log_fullpath)\n#logger.add(sys.stderr, format=\"{time} | {level} | {message}\")\nlogger.add(sys.stdout, colorize=True, format=\"<green>{time}</green> <level> | {level} | {message}</level>\")\nlogger.debug(\"Happy logging with Loguru!\")\ntrace = logger.trace",
+        "detail": "module.log",
+        "documentation": {}
+    },
+    {
+        "label": "trace",
+        "kind": 5,
+        "importPath": "module.log",
+        "description": "module.log",
+        "peekOfCode": "trace = logger.trace\ndebug = logger.debug\ninfo = logger.info\nsuccess = logger.success\nwarning = logger.warning\nerror = logger.error\ncritical = logger.critical\n\"\"\" def trace(message: str, *args, **kwargs):\n    logger.trace(message, *args, **kwargs)\ndef debug(message: str, *args, **kwargs):",
+        "detail": "module.log",
+        "documentation": {}
+    },
+    {
+        "label": "debug",
+        "kind": 5,
+        "importPath": "module.log",
+        "description": "module.log",
+        "peekOfCode": "debug = logger.debug\ninfo = logger.info\nsuccess = logger.success\nwarning = logger.warning\nerror = logger.error\ncritical = logger.critical\n\"\"\" def trace(message: str, *args, **kwargs):\n    logger.trace(message, *args, **kwargs)\ndef debug(message: str, *args, **kwargs):\n    logger.debug(message, *args, **kwargs)",
+        "detail": "module.log",
+        "documentation": {}
+    },
+    {
+        "label": "info",
+        "kind": 5,
+        "importPath": "module.log",
+        "description": "module.log",
+        "peekOfCode": "info = logger.info\nsuccess = logger.success\nwarning = logger.warning\nerror = logger.error\ncritical = logger.critical\n\"\"\" def trace(message: str, *args, **kwargs):\n    logger.trace(message, *args, **kwargs)\ndef debug(message: str, *args, **kwargs):\n    logger.debug(message, *args, **kwargs)\ndef info(message: str, *args, **kwargs):",
+        "detail": "module.log",
+        "documentation": {}
+    },
+    {
+        "label": "success",
+        "kind": 5,
+        "importPath": "module.log",
+        "description": "module.log",
+        "peekOfCode": "success = logger.success\nwarning = logger.warning\nerror = logger.error\ncritical = logger.critical\n\"\"\" def trace(message: str, *args, **kwargs):\n    logger.trace(message, *args, **kwargs)\ndef debug(message: str, *args, **kwargs):\n    logger.debug(message, *args, **kwargs)\ndef info(message: str, *args, **kwargs):\n    logger.info(message, *args, **kwargs)",
+        "detail": "module.log",
+        "documentation": {}
+    },
+    {
+        "label": "warning",
+        "kind": 5,
+        "importPath": "module.log",
+        "description": "module.log",
+        "peekOfCode": "warning = logger.warning\nerror = logger.error\ncritical = logger.critical\n\"\"\" def trace(message: str, *args, **kwargs):\n    logger.trace(message, *args, **kwargs)\ndef debug(message: str, *args, **kwargs):\n    logger.debug(message, *args, **kwargs)\ndef info(message: str, *args, **kwargs):\n    logger.info(message, *args, **kwargs)\ndef success(message: str, *args, **kwargs):",
+        "detail": "module.log",
+        "documentation": {}
+    },
+    {
+        "label": "error",
+        "kind": 5,
+        "importPath": "module.log",
+        "description": "module.log",
+        "peekOfCode": "error = logger.error\ncritical = logger.critical\n\"\"\" def trace(message: str, *args, **kwargs):\n    logger.trace(message, *args, **kwargs)\ndef debug(message: str, *args, **kwargs):\n    logger.debug(message, *args, **kwargs)\ndef info(message: str, *args, **kwargs):\n    logger.info(message, *args, **kwargs)\ndef success(message: str, *args, **kwargs):\n    logger.success(message, *args, **kwargs)",
+        "detail": "module.log",
+        "documentation": {}
+    },
+    {
+        "label": "critical",
+        "kind": 5,
+        "importPath": "module.log",
+        "description": "module.log",
+        "peekOfCode": "critical = logger.critical\n\"\"\" def trace(message: str, *args, **kwargs):\n    logger.trace(message, *args, **kwargs)\ndef debug(message: str, *args, **kwargs):\n    logger.debug(message, *args, **kwargs)\ndef info(message: str, *args, **kwargs):\n    logger.info(message, *args, **kwargs)\ndef success(message: str, *args, **kwargs):\n    logger.success(message, *args, **kwargs)\ndef warning(message: str, *args, **kwargs):",
+        "detail": "module.log",
+        "documentation": {}
+    },
+    {
+        "label": "YggdrasilServer",
+        "kind": 6,
+        "importPath": "module.tools",
+        "description": "module.tools",
+        "peekOfCode": "class YggdrasilServer:\n    def __init__(self,level: int, name: str, url: str) -> None:\n        self.level = level\n        self.name = name\n        self.url = url\n        pass",
+        "detail": "module.tools",
+        "documentation": {}
+    },
+    {
+        "label": "pyBool2JsonStr",
+        "kind": 2,
+        "importPath": "module.tools",
+        "description": "module.tools",
+        "peekOfCode": "def pyBool2JsonStr(value: bool) -> str:\n    if(value):\n        return \"true\"\n    else:\n        return \"false\"\nclass YggdrasilServer:\n    def __init__(self,level: int, name: str, url: str) -> None:\n        self.level = level\n        self.name = name\n        self.url = url",
+        "detail": "module.tools",
+        "documentation": {}
+    },
+    {
+        "label": "encode",
+        "kind": 5,
+        "importPath": "config",
+        "description": "config",
+        "peekOfCode": "encode = \"utf-8\"",
+        "detail": "config",
+        "documentation": {}
+    },
+    {
+        "label": "read_root",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def read_root():\n    return {\"Hello\": \"World\"}\n@app.get(\"/sessionserver/session/minecraft/hasJoined\")\ndef has_joined(\n    # 从查询参数中获取 username 和 serverId 的值，使用 Query 类来设置一些校验规则\n    username: str = Query(..., min_length=3, max_length=16, regex=\"^[a-zA-Z0-9_]+$\"),\n    serverId: str = Query(..., min_length=1, max_length=64)\n):\n    log.info(f\"Player {username} try to join Server {serverId}\")\n    #? 遍历验证服务器列表",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "has_joined",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def has_joined(\n    # 从查询参数中获取 username 和 serverId 的值，使用 Query 类来设置一些校验规则\n    username: str = Query(..., min_length=3, max_length=16, regex=\"^[a-zA-Z0-9_]+$\"),\n    serverId: str = Query(..., min_length=1, max_length=64)\n):\n    log.info(f\"Player {username} try to join Server {serverId}\")\n    #? 遍历验证服务器列表\n    for server in context.YggdrasilServers:\n        url = (f\"{server.url}/session/minecraft/hasJoined?username={username}&serverId={serverId}\")\n        log.info(url)",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "app",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "app = FastAPI()\n@app.get(\"/\")\ndef read_root():\n    return {\"Hello\": \"World\"}\n@app.get(\"/sessionserver/session/minecraft/hasJoined\")\ndef has_joined(\n    # 从查询参数中获取 username 和 serverId 的值，使用 Query 类来设置一些校验规则\n    username: str = Query(..., min_length=3, max_length=16, regex=\"^[a-zA-Z0-9_]+$\"),\n    serverId: str = Query(..., min_length=1, max_length=64)\n):",
+        "detail": "main",
+        "documentation": {}
+    }
+]

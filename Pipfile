@@ -1,0 +1,16 @@
+[[source]]
+url = "https://pypi.mirrors.ustc.edu.cn/simple/"
+verify_ssl = false
+name = "pip_conf_index_global"
+
+[packages]
+fastapi = "*"
+uvicorn = {extras = ["standard"], version = "*"}
+pyjson5 = "*"
+loguru = "*"
+requests = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.10"

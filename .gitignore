@@ -6,6 +6,10 @@ __pycache__/
 # C extensions
 *.so
 
+# Project
+log/
+config/
+
 # Distribution / packaging
 .Python
 build/
@@ -135,4 +139,5 @@ dmypy.json
 .pytype/
 
 # Cython debug symbols
+cython_debug/
 cython_debug/

@@ -9,6 +9,7 @@ uvicorn = {extras = ["standard"], version = "*"}
 pyjson5 = "*"
 loguru = "*"
 requests = "*"
+nuitka = "*"
 
 [dev-packages]
 

@@ -7,7 +7,7 @@ enable = False
 cstr = (
     f"""{{
     //* AndreaYggdrasilProxy
-    Enable : true,
+    Enable : {tools.pyBool2JsonStr(enable)},
     IP : "0.0.0.0",
     Port : 32217,
     YggdrasilServers : [

@@ -273,7 +273,7 @@
         "kind": 5,
         "importPath": "module.loadConfig",
         "description": "module.loadConfig",
-        "peekOfCode": "enable = False\ncstr = (\n    f\"\"\"{{\n    //* AndreaYggdrasilProxy\n    Enable : true,\n    IP : \"0.0.0.0\",\n    Port : 32217,\n    YggdrasilServers : [\n        {{\n            //! Mojang 官方验证服务器",
+        "peekOfCode": "enable = False\ncstr = (\n    f\"\"\"{{\n    //* AndreaYggdrasilProxy\n    Enable : {tools.pyBool2JsonStr(enable)},\n    IP : \"0.0.0.0\",\n    Port : 32217,\n    YggdrasilServers : [\n        {{\n            //! Mojang 官方验证服务器",
         "detail": "module.loadConfig",
         "documentation": {}
     },
@@ -282,7 +282,7 @@
         "kind": 5,
         "importPath": "module.loadConfig",
         "description": "module.loadConfig",
-        "peekOfCode": "cstr = (\n    f\"\"\"{{\n    //* AndreaYggdrasilProxy\n    Enable : true,\n    IP : \"0.0.0.0\",\n    Port : 32217,\n    YggdrasilServers : [\n        {{\n            //! Mojang 官方验证服务器\n            Level : 0,",
+        "peekOfCode": "cstr = (\n    f\"\"\"{{\n    //* AndreaYggdrasilProxy\n    Enable : {tools.pyBool2JsonStr(enable)},\n    IP : \"0.0.0.0\",\n    Port : 32217,\n    YggdrasilServers : [\n        {{\n            //! Mojang 官方验证服务器\n            Level : 0,",
         "detail": "module.loadConfig",
         "documentation": {}
     },

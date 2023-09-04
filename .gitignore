@@ -11,6 +11,8 @@ log/
 config/
 launcher.build/
 launcher.dist/
+launcher.onefile-build/
+launcher.exe
 
 # Distribution / packaging
 .Python

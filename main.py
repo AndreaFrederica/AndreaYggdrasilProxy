@@ -1,9 +1,10 @@
 import requests
-import pyjson5
 
-from typing import Union
 from fastapi import FastAPI, Query, Response
-from module import loadConfig, log, configIO, context
+from module import loadConfig
+from module import log, context
+
+
 
 app = FastAPI()
 

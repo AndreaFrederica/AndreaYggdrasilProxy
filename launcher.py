@@ -1,5 +1,8 @@
-from main import app
 from module import context, loadConfig, log
+loadConfig.init()
+log.init()
+log.info("[Config] Config Loaded")
+from main import app
 if __name__ == "__main__":
     if(context.config["Enable"]):
         import uvicorn

@@ -3,11 +3,13 @@ from module import configIO, context, log, tools
 
 #! 默认配置
 enable = False
+log = False
 
 cstr = (
     f"""{{
     //* AndreaYggdrasilProxy
     Enable : {tools.pyBool2JsonStr(enable)},
+    Log: {tools.pyBool2JsonStr(log)},
     IP : "0.0.0.0",
     Port : 32217,
     YggdrasilServers : [
@@ -35,13 +37,11 @@ def init():
     global server_url_list, enable
     context.config: configIO.Config = configIO.Config(
         "AndreaYggdrasilProxy")
-    if(not context.config.defaultCheck("YggdrasilServers","Enable","IP","Port")):
+    if(not context.config.defaultCheck("YggdrasilServers","Enable","IP","Port","Log")):
         context.config.setRAW_STR(cstr)
     context.config.read()
     enable = context.config["enable"]
-    log.info("[Config] Config Loaded")
 
-def loadServers():
     context.YggdrasilServers = list()
     for server_info in context.config["YggdrasilServers"]:
         server = tools.YggdrasilServer(
@@ -53,7 +53,6 @@ def loadServers():
     # 使用 sorted() 函数来对列表进行排序，指定 key 参数为 lambda 表达式，表示按照实例的 level 属性来排序
     context.YggdrasilServers = sorted(context.YggdrasilServers, key=lambda server: server.level)
 
-init()
-loadServers()
+
 
 

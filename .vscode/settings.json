@@ -3,7 +3,9 @@
         "andreafrederica",
         "fastapi",
         "Mojang",
+        "Nuitka",
         "Offical",
+        "pwsh",
         "sessionserver",
         "uvicorn",
         "WSIO"

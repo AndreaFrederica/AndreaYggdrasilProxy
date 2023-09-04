@@ -74,15 +74,7 @@
         "documentation": {}
     },
     {
-        "label": "loadConfig",
-        "importPath": "module",
-        "description": "module",
-        "isExtraImport": true,
-        "detail": "module",
-        "documentation": {}
-    },
-    {
-        "label": "log",
+        "label": "context",
         "importPath": "module",
         "description": "module",
         "isExtraImport": true,
@@ -106,7 +98,15 @@
         "documentation": {}
     },
     {
-        "label": "configIO",
+        "label": "loadConfig",
+        "importPath": "module",
+        "description": "module",
+        "isExtraImport": true,
+        "detail": "module",
+        "documentation": {}
+    },
+    {
+        "label": "log",
         "importPath": "module",
         "description": "module",
         "isExtraImport": true,
@@ -183,14 +183,6 @@
         "documentation": {}
     },
     {
-        "label": "Union",
-        "importPath": "typing",
-        "description": "typing",
-        "isExtraImport": true,
-        "detail": "typing",
-        "documentation": {}
-    },
-    {
         "label": "FastAPI",
         "importPath": "fastapi",
         "description": "fastapi",
@@ -255,16 +247,7 @@
         "kind": 2,
         "importPath": "module.loadConfig",
         "description": "module.loadConfig",
-        "peekOfCode": "def init():\n    global server_url_list, enable\n    context.config: configIO.Config = configIO.Config(\n        \"AndreaYggdrasilProxy\")\n    if(not context.config.defaultCheck(\"YggdrasilServers\",\"Enable\",\"IP\",\"Port\")):\n        context.config.setRAW_STR(cstr)\n    context.config.read()\n    enable = context.config[\"enable\"]\n    log.info(\"[Config] Config Loaded\")\ndef loadServers():",
-        "detail": "module.loadConfig",
-        "documentation": {}
-    },
-    {
-        "label": "loadServers",
-        "kind": 2,
-        "importPath": "module.loadConfig",
-        "description": "module.loadConfig",
-        "peekOfCode": "def loadServers():\n    context.YggdrasilServers = list()\n    for server_info in context.config[\"YggdrasilServers\"]:\n        server = tools.YggdrasilServer(\n            level = server_info[\"Level\"],\n            name = server_info[\"Name\"],\n            url = server_info[\"Url\"]\n            )\n        context.YggdrasilServers.append(server)\n    # 使用 sorted() 函数来对列表进行排序，指定 key 参数为 lambda 表达式，表示按照实例的 level 属性来排序",
+        "peekOfCode": "def init():\n    global server_url_list, enable\n    context.config: configIO.Config = configIO.Config(\n        \"AndreaYggdrasilProxy\")\n    if(not context.config.defaultCheck(\"YggdrasilServers\",\"Enable\",\"IP\",\"Port\",\"Log\")):\n        context.config.setRAW_STR(cstr)\n    context.config.read()\n    enable = context.config[\"enable\"]\n    context.YggdrasilServers = list()\n    for server_info in context.config[\"YggdrasilServers\"]:",
         "detail": "module.loadConfig",
         "documentation": {}
     },
@@ -273,7 +256,16 @@
         "kind": 5,
         "importPath": "module.loadConfig",
         "description": "module.loadConfig",
-        "peekOfCode": "enable = False\ncstr = (\n    f\"\"\"{{\n    //* AndreaYggdrasilProxy\n    Enable : {tools.pyBool2JsonStr(enable)},\n    IP : \"0.0.0.0\",\n    Port : 32217,\n    YggdrasilServers : [\n        {{\n            //! Mojang 官方验证服务器",
+        "peekOfCode": "enable = False\nlog = False\ncstr = (\n    f\"\"\"{{\n    //* AndreaYggdrasilProxy\n    Enable : {tools.pyBool2JsonStr(enable)},\n    Log: {tools.pyBool2JsonStr(log)},\n    IP : \"0.0.0.0\",\n    Port : 32217,\n    YggdrasilServers : [",
+        "detail": "module.loadConfig",
+        "documentation": {}
+    },
+    {
+        "label": "log",
+        "kind": 5,
+        "importPath": "module.loadConfig",
+        "description": "module.loadConfig",
+        "peekOfCode": "log = False\ncstr = (\n    f\"\"\"{{\n    //* AndreaYggdrasilProxy\n    Enable : {tools.pyBool2JsonStr(enable)},\n    Log: {tools.pyBool2JsonStr(log)},\n    IP : \"0.0.0.0\",\n    Port : 32217,\n    YggdrasilServers : [\n        {{",
         "detail": "module.loadConfig",
         "documentation": {}
     },
@@ -282,8 +274,17 @@
         "kind": 5,
         "importPath": "module.loadConfig",
         "description": "module.loadConfig",
-        "peekOfCode": "cstr = (\n    f\"\"\"{{\n    //* AndreaYggdrasilProxy\n    Enable : {tools.pyBool2JsonStr(enable)},\n    IP : \"0.0.0.0\",\n    Port : 32217,\n    YggdrasilServers : [\n        {{\n            //! Mojang 官方验证服务器\n            Level : 0,",
+        "peekOfCode": "cstr = (\n    f\"\"\"{{\n    //* AndreaYggdrasilProxy\n    Enable : {tools.pyBool2JsonStr(enable)},\n    Log: {tools.pyBool2JsonStr(log)},\n    IP : \"0.0.0.0\",\n    Port : 32217,\n    YggdrasilServers : [\n        {{\n            //! Mojang 官方验证服务器",
         "detail": "module.loadConfig",
+        "documentation": {}
+    },
+    {
+        "label": "init",
+        "kind": 2,
+        "importPath": "module.log",
+        "description": "module.log",
+        "peekOfCode": "def init():\n    if(context.config[\"Log\"]):\n        log_filename = \"loguru.log\"\n        log_path = \"log\"\n        if(not os.path.exists):\n            os.mkdir(log_path)\n        log_fullpath= f\"{log_path}/{log_filename}\"\n        logger.remove(0)\n        logger.add(log_fullpath)\n    else:",
+        "detail": "module.log",
         "documentation": {}
     },
     {
@@ -337,24 +338,6 @@
         "importPath": "module.log",
         "description": "module.log",
         "peekOfCode": "def critical(message: str, *args, **kwargs):\n    logger.critical(message, *args, **kwargs) \"\"\"",
-        "detail": "module.log",
-        "documentation": {}
-    },
-    {
-        "label": "log_filename",
-        "kind": 5,
-        "importPath": "module.log",
-        "description": "module.log",
-        "peekOfCode": "log_filename = \"loguru.log\"\nlog_path = \"log\"\nif(not os.path.exists):\n    os.mkdir(log_path)\nlog_fullpath= f\"{log_path}/{log_filename}\"\nlogger.remove(0)\nlogger.add(log_fullpath)\n#logger.add(sys.stderr, format=\"{time} | {level} | {message}\")\nlogger.add(sys.stdout, colorize=True, format=\"<green>{time}</green> <level> | {level} | {message}</level>\")\nlogger.debug(\"Happy logging with Loguru!\")",
-        "detail": "module.log",
-        "documentation": {}
-    },
-    {
-        "label": "log_path",
-        "kind": 5,
-        "importPath": "module.log",
-        "description": "module.log",
-        "peekOfCode": "log_path = \"log\"\nif(not os.path.exists):\n    os.mkdir(log_path)\nlog_fullpath= f\"{log_path}/{log_filename}\"\nlogger.remove(0)\nlogger.add(log_fullpath)\n#logger.add(sys.stderr, format=\"{time} | {level} | {message}\")\nlogger.add(sys.stdout, colorize=True, format=\"<green>{time}</green> <level> | {level} | {message}</level>\")\nlogger.debug(\"Happy logging with Loguru!\")\ntrace = logger.trace",
         "detail": "module.log",
         "documentation": {}
     },

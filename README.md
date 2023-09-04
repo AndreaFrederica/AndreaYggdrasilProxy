@@ -10,8 +10,6 @@ Email: andreafrederica@outlook.com
 #### 软件架构
 整个项目采用FastAPI搓的
 依赖管理采用Flask
-\# 说不定哪天就支持配置文件里面写了（咕咕咕）
-默认情况下记录log 需要关闭请注释相关代码（跑）
 launcher为启动器
 main为主程序（主要业务逻辑）
 Config.py只保存编码格式 请注意
@@ -29,7 +27,24 @@ Config.py只保存编码格式 请注意
 6.  回到第四步 enjoy it
 
 ##### 安装二进制版本
-1.  还没写编译脚本（咕咕咕）
+1.  从Release下载二进制版本
+2.  运行
+3.  补全配置文件
+4.  回到第二步 enjoy it
+
+##### 构建二进制版本(Windows)
+0.  此方案采用 *Nuitka* 构建
+1.  安装Python3.10版本
+2.  安装pipenv
+3.  在终端执行 ``pipenv install``
+4.  ``pipenv shell``
+5.  ``./build.ps1``
+6.  Wait a moment（请确认网络良好 并且补全编译环境）
+7.  于 *Build* 目录中找到构建产物
+
+##### 构建二进制版本(Linux)
+1.  安装 *pwsh*
+2.  同Windows构建方式
 
 #### 使用说明
 
@@ -40,6 +55,7 @@ Config.py只保存编码格式 请注意
         {
         //* AndreaYggdrasilProxy
         Enable : true,
+        Log : false,
         IP : "0.0.0.0",
         Port : 32217,
         YggdrasilServers : [
@@ -68,7 +84,7 @@ Config.py只保存编码格式 请注意
 
 ##### 待办事项
 1.  帮忙写英文文档 Tanks. 一直咕咕咕懒得写（跑）
-2.  帮忙写编译脚本打包二进制（跑）
+2.  ~~帮忙写编译脚本打包二进制（跑）~~
 3.  联系方式 andreafrederica@outlook.com 打包完二进制什么的可以联系我（跑）
 
 ##### 流程

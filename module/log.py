@@ -1,3 +1,4 @@
+from module import context
 import sys
 import os
 from loguru import logger
@@ -16,18 +17,23 @@ WARNING (30): 警告类型，用于指示可能需要进一步调查的不寻常
 ERROR (40): 错误类型，用于记录影响特定操作的错误条件。
 CRITICAL (50): 严重类型，用于记录阻止核心功能正常工作的错误条件。
 """
-log_filename = "loguru.log"
-log_path = "log"
-if(not os.path.exists):
-    os.mkdir(log_path)
-log_fullpath= f"{log_path}/{log_filename}"
 
-logger.remove(0)
-logger.add(log_fullpath)
-#logger.add(sys.stderr, format="{time} | {level} | {message}")
-logger.add(sys.stdout, colorize=True, format="<green>{time}</green> <level> | {level} | {message}</level>")
+def init():
+    if(context.config["Log"]):
+        log_filename = "loguru.log"
+        log_path = "log"
+        if(not os.path.exists):
+            os.mkdir(log_path)
+        log_fullpath= f"{log_path}/{log_filename}"
 
-logger.debug("Happy logging with Loguru!")
+        logger.remove(0)
+        logger.add(log_fullpath)
+    else:
+        logger.info("Log file disabled")
+    #logger.add(sys.stderr, format="{time} | {level} | {message}")
+    logger.add(sys.stdout, colorize=True, format="<green>{time}</green> <level> | {level} | {message}</level>")
+
+    logger.debug("Happy logging with Loguru!")
 
 
 trace = logger.trace

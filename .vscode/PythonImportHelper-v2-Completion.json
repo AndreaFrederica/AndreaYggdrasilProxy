@@ -283,7 +283,7 @@
         "kind": 2,
         "importPath": "module.log",
         "description": "module.log",
-        "peekOfCode": "def init():\n    if(context.config[\"Log\"]):\n        log_filename = \"loguru.log\"\n        log_path = \"log\"\n        if(not os.path.exists):\n            os.mkdir(log_path)\n        log_fullpath= f\"{log_path}/{log_filename}\"\n        logger.remove(0)\n        logger.add(log_fullpath)\n    else:",
+        "peekOfCode": "def init():\n    logger.remove(0)\n    if(context.config[\"Log\"]):\n        log_filename = \"loguru.log\"\n        log_path = \"log\"\n        if(not os.path.exists):\n            os.mkdir(log_path)\n        log_fullpath= f\"{log_path}/{log_filename}\"\n        logger.add(log_fullpath)\n    else:",
         "detail": "module.log",
         "documentation": {}
     },

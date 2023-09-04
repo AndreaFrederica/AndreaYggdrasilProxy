@@ -19,6 +19,7 @@ CRITICAL (50): 严重类型，用于记录阻止核心功能正常工作的错�
 """
 
 def init():
+    logger.remove(0)
     if(context.config["Log"]):
         log_filename = "loguru.log"
         log_path = "log"
@@ -26,7 +27,7 @@ def init():
             os.mkdir(log_path)
         log_fullpath= f"{log_path}/{log_filename}"
 
-        logger.remove(0)
+        
         logger.add(log_fullpath)
     else:
         logger.info("Log file disabled")

@@ -1,8 +1,11 @@
 {
     "cSpell.words": [
+        "andreafrederica",
         "fastapi",
         "Mojang",
+        "Offical",
         "sessionserver",
-        "uvicorn"
+        "uvicorn",
+        "WSIO"
     ]
 }

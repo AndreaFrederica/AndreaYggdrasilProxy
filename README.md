@@ -8,16 +8,11 @@ yggdrasil-proxy的一个简单Python实现
 Email: andreafrederica@outlook.com
 
 #### 软件架构
-整个项目采用FastAPI搓的
-
-依赖管理采用pipenv
-
-launcher为启动器
-
+整个项目采用FastAPI搓的  
+依赖管理采用pipenv  
+launcher为启动器  
 main为主程序（主要业务逻辑）
-
-Config.py只保存编码格式 请注意
-
+Config.py只保存编码格式 请注意  
 别的乱七八糟的模块全在module里面 复用的老WSIO框架代码
 
 

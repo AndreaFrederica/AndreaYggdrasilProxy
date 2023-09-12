@@ -9,7 +9,7 @@ Email: andreafrederica@outlook.com
 
 #### 软件架构
 整个项目采用FastAPI搓的
-依赖管理采用Flask
+依赖管理采用pipenv
 launcher为启动器
 main为主程序（主要业务逻辑）
 Config.py只保存编码格式 请注意

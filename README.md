@@ -1,14 +1,10 @@
 # AndreaYggdrasilProxy
 
 #### 介绍
-yggdrasil-proxy的一个简单Python实现
-
-可以实现多服务器验证
-
-替代老旧的YggdrasilOfficalProxy
-
-有什么需要可以直接发邮件催我 看得到的话我会第一时间回复
-
+yggdrasil-proxy的一个简单Python实现  
+可以实现多服务器验证  
+替代老旧的YggdrasilOfficalProxy  
+有什么需要可以直接发邮件催我 看得到的话我会第一时间回复  
 Email: andreafrederica@outlook.com
 
 #### 软件架构

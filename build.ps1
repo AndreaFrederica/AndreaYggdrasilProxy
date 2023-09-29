@@ -19,6 +19,6 @@ if(Test-Path("./$buildPath/$nuitkaBuildTarget")){
     Remove-Item("./$buildPath/$nuitkaBuildTarget")
 }
 
-python -m nuitka --follow-imports --standalone --onefile --show-memory  --show-progress --include-package=requests --output-dir=$buildPath $sourceFile
+python3 -m nuitka --follow-imports --standalone --onefile --show-memory  --show-progress --include-package=requests --output-dir=$buildPath $sourceFile
 
 Move-Item ./$buildPath/$nuitkaBuildTarget ./$buildPath/$outputName

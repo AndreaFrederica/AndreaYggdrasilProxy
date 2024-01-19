@@ -1,3 +1,4 @@
+import json
 import requests
 
 from fastapi import FastAPI, Query, Response
@@ -6,6 +7,7 @@ from module import loadConfig
 from module import log, context
 from module import playerCache
 from module.playerCache import PlayerCache
+from module.tools import YggdrasilServer
 
 
 
@@ -19,7 +21,46 @@ def read_root():
 
 @app.post("/api/profiles/minecraft")
 def profiles_minecraft(req_body: Any):
-    print(req_body)
+    log.info(f"Server try to get PlayerInfo req = {str(req_body)}")
+    players:list = list(req_body)
+    server2player_group:dict = dict()
+    #? 服务器pid对应的玩家组
+    for player in players:
+        server_pid:int = context.player_cache.get(player)
+        if(isinstance (server2player_group[server_pid],list)):
+            server2player_group[server_pid] += [player]
+        else:
+            server2player_group[server_pid] = [player]
+    responses:list = list()
+    for server_pid in server2player_group.keys():
+        server:YggdrasilServer = context.server_pid2server[server_pid]
+        url = server.profile_api
+        data=json.dumps(server2player_group[server_pid])
+        log.info(f"Url = {url} Data = {data}")
+        if(server.proxies != None):
+            if(server.port != None):
+                response = requests.post(url,data=data,proxies=server.proxies,timeout=server.timeout,port=server.port)
+            else:
+                response = requests.post(url,data=data,proxies=server.proxies,timeout=server.timeout)
+        else:
+            if(server.proxies != None):
+                response = requests.post(url,data=data,timeout=server.timeout,port=server.port)
+            else:
+                response = requests.post(url,data=data,timeout=server.timeout)
+        #? 向上游服务器发送请求 请求玩家数据
+        if response.status_code == 200:
+            log.success(f"Get PlayerData from {server.name}")
+            responses.append(response)
+        else:
+            log.error(f"Can't get PlayerData from {server.name}")
+    #? 至此完成所有上游服务器的请求 下面为合并请求数据
+    neo_response_data:list = list()
+    for requests in responses:
+        player_ls:list = response.json()
+        for __player in player_ls:
+            neo_response_data.append(__player)
+    log.info(f"All PlayerData = {str(neo_response_data)}")
+    return neo_response_data
 
 @app.get("/sessionserver/session/minecraft/hasJoined")
 def has_joined(
@@ -57,7 +98,7 @@ def has_joined(
             )
             # 返回响应的 JSON 数据，作为 API 的返回值
             log.info(neo_response)
-            #context.player_cache.set(username,server.url)
+            context.player_cache.set(username,server.pid)
             #? 保存玩家和使用的验证服务器到缓存
             #TODO 完成PlayerCache
             return neo_response

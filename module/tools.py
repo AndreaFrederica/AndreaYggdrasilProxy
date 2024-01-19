@@ -5,7 +5,9 @@ def pyBool2JsonStr(value: bool) -> str:
         return "false"
 
 class YggdrasilServer:
-    def __init__(self,level: int, name: str, url: str) -> None:
+    def __init__(self,level: int, name: str, url: str, pid: int) -> None:
+        self.pid = pid
+        #? 自增id
         self.level = level
         self.name = name
         self.url = url
@@ -27,5 +29,13 @@ class YggdrasilServer:
     def setUnofficialProfileAPI(self):
         self.profile_api = self.url.replace("/api/yggdrasil/sessionserver", "/api/profiles/minecraft")
     def setOfficialProfileAPI(self):
-        self.profile_api = self.url
-        #! ProfileAPI资料不完全 尚未完成 禁止使用
+        self.profile_api = "https://api.mojang.com/profiles/minecraft"
+    def autoProfileAPI(self):
+        server_type:str = self.serverTypeCheck()
+        if(server_type == "official"):
+            self.setOfficialProfileAPI
+        elif(server_type == "unofficial"):
+            self.setUnofficialProfileAPI
+        else:
+            self.profile_api = None
+            #! 无法自动推断服务器地址

@@ -35,6 +35,7 @@ cstr = (
 
 def init():
     global server_url_list, enable
+    context.server_pid2server = dict()
     context.config: configIO.Config = configIO.Config(
         "AndreaYggdrasilProxy")
     if(not context.config.defaultCheck("YggdrasilServers","Enable","IP","Port","Log")):
@@ -43,12 +44,16 @@ def init():
     enable = context.config["enable"]
 
     context.YggdrasilServers = list()
+    pid = 0
     for server_info in context.config["YggdrasilServers"]:
         server = tools.YggdrasilServer(
             level = server_info["Level"],
             name = server_info["Name"],
-            url = server_info["Url"]
+            url = server_info["Url"],
+            pid = pid
             )
+        pid += 1
+        #? pid 为自增id 用于鉴别服务器实例
         if("Proxies" in server_info):
             server.proxies = server_info["Proxies"]
             #! 若存在代理服务器则为此服务器注册使用代理服务器 请参照request库所支持格式填写
@@ -65,7 +70,11 @@ def init():
         if("ProfileAPI" in server_info):
             server.profile_api = server_info["ProfileAPI"]
             #? 若指定ProfileAPI则指定ProfileAPI 否则进行API推算
+        else:
+            server.autoProfileAPI()
         context.YggdrasilServers.append(server)
+        context.server_pid2server[server.pid] = server
+        #? 注册pid到server的映射
     # 使用 sorted() 函数来对列表进行排序，指定 key 参数为 lambda 表达式，表示按照实例的 level 属性来排序
     context.YggdrasilServers = sorted(context.YggdrasilServers, key=lambda server: server.level)
 

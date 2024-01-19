@@ -1,5 +1,8 @@
-from module import context, loadConfig, log
+from module import context, loadConfig, log, playerCache
 loadConfig.init()
+#playerCache.init()
+#context.player_cache:playerCache.PlayerCache = playerCache.PlayerCache()
+#TODO 完成PlayerCache
 log.init()
 log.info("[Config] Config Loaded")
 from main import app

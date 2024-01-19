@@ -34,6 +34,14 @@
         "documentation": {}
     },
     {
+        "label": "playerCache",
+        "importPath": "module",
+        "description": "module",
+        "isExtraImport": true,
+        "detail": "module",
+        "documentation": {}
+    },
+    {
         "label": "configIO",
         "importPath": "module",
         "description": "module",
@@ -98,6 +106,14 @@
         "documentation": {}
     },
     {
+        "label": "playerCache",
+        "importPath": "module",
+        "description": "module",
+        "isExtraImport": true,
+        "detail": "module",
+        "documentation": {}
+    },
+    {
         "label": "loadConfig",
         "importPath": "module",
         "description": "module",
@@ -115,6 +131,14 @@
     },
     {
         "label": "context",
+        "importPath": "module",
+        "description": "module",
+        "isExtraImport": true,
+        "detail": "module",
+        "documentation": {}
+    },
+    {
+        "label": "playerCache",
         "importPath": "module",
         "description": "module",
         "isExtraImport": true,
@@ -166,6 +190,40 @@
         "documentation": {}
     },
     {
+        "label": "Any",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Any",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "time",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "time",
+        "description": "time",
+        "detail": "time",
+        "documentation": {}
+    },
+    {
+        "label": "threading",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "threading",
+        "description": "threading",
+        "detail": "threading",
+        "documentation": {}
+    },
+    {
         "label": "app",
         "importPath": "main",
         "description": "main",
@@ -204,6 +262,14 @@
         "description": "fastapi",
         "isExtraImport": true,
         "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "PlayerCache",
+        "importPath": "module.playerCache",
+        "description": "module.playerCache",
+        "isExtraImport": true,
+        "detail": "module.playerCache",
         "documentation": {}
     },
     {
@@ -405,11 +471,29 @@
         "documentation": {}
     },
     {
+        "label": "PlayerCache",
+        "kind": 6,
+        "importPath": "module.playerCache",
+        "description": "module.playerCache",
+        "peekOfCode": "class PlayerCache:\n    gc_time: int = 172800\n    #? 48h为GC阈值\n    def __init__(self) -> None:\n        self.player_data = dict()\n        self.key_timestamp = dict()\n        #? 记录下每个KV的时间戳 以便回收\n    def set(self, __key: str, __value: Any ) -> None:\n        self[__key] = __value\n    def get(self, __key: str) -> None:",
+        "detail": "module.playerCache",
+        "documentation": {}
+    },
+    {
+        "label": "init",
+        "kind": 2,
+        "importPath": "module.playerCache",
+        "description": "module.playerCache",
+        "peekOfCode": "def init():\n    gc_thread = threading.Thread(target=PlayerCache.gcTask, name='player_data_gc_task')\n    gc_thread.start()\n#TODO 完成PlayerCache",
+        "detail": "module.playerCache",
+        "documentation": {}
+    },
+    {
         "label": "YggdrasilServer",
         "kind": 6,
         "importPath": "module.tools",
         "description": "module.tools",
-        "peekOfCode": "class YggdrasilServer:\n    def __init__(self,level: int, name: str, url: str) -> None:\n        self.level = level\n        self.name = name\n        self.url = url\n        pass",
+        "peekOfCode": "class YggdrasilServer:\n    def __init__(self,level: int, name: str, url: str) -> None:\n        self.level = level\n        self.name = name\n        self.url = url\n        self.proxies = None\n        self.timeout = 5\n        #? 默认五秒超时\n        self.port = None\n        #? None即为不指定端口",
         "detail": "module.tools",
         "documentation": {}
     },
@@ -432,11 +516,29 @@
         "documentation": {}
     },
     {
+        "label": "#context.player_cache:playerCache.PlayerCache",
+        "kind": 5,
+        "importPath": "launcher",
+        "description": "launcher",
+        "peekOfCode": "#context.player_cache:playerCache.PlayerCache = playerCache.PlayerCache()\n#TODO 完成PlayerCache\nlog.init()\nlog.info(\"[Config] Config Loaded\")\nfrom main import app\nif __name__ == \"__main__\":\n    if(context.config[\"Enable\"]):\n        import uvicorn\n        server_url = (f\"http://{context.config['IP']}:{context.config['Port']}\")\n        log.info(f\"Server running on {server_url}\")",
+        "detail": "launcher",
+        "documentation": {}
+    },
+    {
         "label": "read_root",
         "kind": 2,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "def read_root():\n    return {\"Hello\": \"World\"}\n@app.get(\"/sessionserver/session/minecraft/hasJoined\")\ndef has_joined(\n    # 从查询参数中获取 username 和 serverId 的值，使用 Query 类来设置一些校验规则\n    username: str = Query(..., min_length=3, max_length=16, regex=\"^[a-zA-Z0-9_]+$\"),\n    serverId: str = Query(..., min_length=1, max_length=64)\n):\n    log.info(f\"Player {username} try to join Server {serverId}\")\n    #? 遍历验证服务器列表",
+        "peekOfCode": "def read_root():\n    return {\"Hello\": \"World\"}\n@app.post(\"/api/profiles/minecraft\")\ndef profiles_minecraft(req_body: Any):\n    print(req_body)\n@app.get(\"/sessionserver/session/minecraft/hasJoined\")\ndef has_joined(\n    # 从查询参数中获取 username 和 serverId 的值，使用 Query 类来设置一些校验规则\n    username: str = Query(..., min_length=3, max_length=16, pattern=r\"^([a-zA-Z0-9_]+)$\"),\n    serverId: str = Query(..., min_length=1, max_length=64)",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "profiles_minecraft",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def profiles_minecraft(req_body: Any):\n    print(req_body)\n@app.get(\"/sessionserver/session/minecraft/hasJoined\")\ndef has_joined(\n    # 从查询参数中获取 username 和 serverId 的值，使用 Query 类来设置一些校验规则\n    username: str = Query(..., min_length=3, max_length=16, pattern=r\"^([a-zA-Z0-9_]+)$\"),\n    serverId: str = Query(..., min_length=1, max_length=64)\n):\n    log.info(f\"Player {username} try to join Server {serverId}\")\n    #? 遍历验证服务器列表",
         "detail": "main",
         "documentation": {}
     },
@@ -445,7 +547,7 @@
         "kind": 2,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "def has_joined(\n    # 从查询参数中获取 username 和 serverId 的值，使用 Query 类来设置一些校验规则\n    username: str = Query(..., min_length=3, max_length=16, regex=\"^[a-zA-Z0-9_]+$\"),\n    serverId: str = Query(..., min_length=1, max_length=64)\n):\n    log.info(f\"Player {username} try to join Server {serverId}\")\n    #? 遍历验证服务器列表\n    for server in context.YggdrasilServers:\n        url = (f\"{server.url}/session/minecraft/hasJoined?username={username}&serverId={serverId}\")\n        log.info(url)",
+        "peekOfCode": "def has_joined(\n    # 从查询参数中获取 username 和 serverId 的值，使用 Query 类来设置一些校验规则\n    username: str = Query(..., min_length=3, max_length=16, pattern=r\"^([a-zA-Z0-9_]+)$\"),\n    serverId: str = Query(..., min_length=1, max_length=64)\n):\n    log.info(f\"Player {username} try to join Server {serverId}\")\n    #? 遍历验证服务器列表\n    for server in context.YggdrasilServers:\n        url = (f\"{server.url}/session/minecraft/hasJoined?username={username}&serverId={serverId}\")\n        log.info(url)",
         "detail": "main",
         "documentation": {}
     },
@@ -454,7 +556,7 @@
         "kind": 5,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "app = FastAPI()\n@app.get(\"/\")\ndef read_root():\n    return {\"Hello\": \"World\"}\n@app.get(\"/sessionserver/session/minecraft/hasJoined\")\ndef has_joined(\n    # 从查询参数中获取 username 和 serverId 的值，使用 Query 类来设置一些校验规则\n    username: str = Query(..., min_length=3, max_length=16, regex=\"^[a-zA-Z0-9_]+$\"),\n    serverId: str = Query(..., min_length=1, max_length=64)\n):",
+        "peekOfCode": "app = FastAPI()\n@app.get(\"/\")\ndef read_root():\n    return {\"Hello\": \"World\"}\n@app.post(\"/api/profiles/minecraft\")\ndef profiles_minecraft(req_body: Any):\n    print(req_body)\n@app.get(\"/sessionserver/session/minecraft/hasJoined\")\ndef has_joined(\n    # 从查询参数中获取 username 和 serverId 的值，使用 Query 类来设置一些校验规则",
         "detail": "main",
         "documentation": {}
     }

@@ -49,6 +49,22 @@ def init():
             name = server_info["Name"],
             url = server_info["Url"]
             )
+        if("Proxies" in server_info):
+            server.proxies = server_info["Proxies"]
+            #! 若存在代理服务器则为此服务器注册使用代理服务器 请参照request库所支持格式填写
+            #? Proxies : {
+            #?    'http': 'http://127.0.0.1:20808',
+            #?    'https': 'http://127.0.0.1:20808'
+            #?}
+        if("Timeout" in server_info):
+            server.timeout = server_info["Timeout"]
+            #? 若指定超时时间则自定义超时时间 默认为5秒
+        if("Port" in server_info):
+            server.port = server_info["Port"]
+            #? 若指定超时时间则自定义超时时间 默认为5秒
+        if("ProfileAPI" in server_info):
+            server.profile_api = server_info["ProfileAPI"]
+            #? 若指定ProfileAPI则指定ProfileAPI 否则进行API推算
         context.YggdrasilServers.append(server)
     # 使用 sorted() 函数来对列表进行排序，指定 key 参数为 lambda 表达式，表示按照实例的 level 属性来排序
     context.YggdrasilServers = sorted(context.YggdrasilServers, key=lambda server: server.level)

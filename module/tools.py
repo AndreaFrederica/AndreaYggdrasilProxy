@@ -33,9 +33,9 @@ class YggdrasilServer:
     def autoProfileAPI(self):
         server_type:str = self.serverTypeCheck()
         if(server_type == "official"):
-            self.setOfficialProfileAPI
+            self.setOfficialProfileAPI()
         elif(server_type == "unofficial"):
-            self.setUnofficialProfileAPI
+            self.setUnofficialProfileAPI()
         else:
             self.profile_api = None
             #! 无法自动推断服务器地址

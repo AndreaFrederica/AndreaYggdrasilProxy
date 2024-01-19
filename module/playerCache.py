@@ -42,6 +42,7 @@ class PlayerCache:
     def gcTask(self) -> None:
         while(True):
             self.gc()
+            #log.debug(f"完成PlayerDataCacheGC PlayerCache : {self.player_data}")
             time.sleep(60)
 
 def init():

@@ -3,16 +3,13 @@ from pydantic import BaseModel
 import requests
 
 from fastapi import Body, FastAPI, Query, Response
-from typing import Any
+from typing import Any, List
 from module import loadConfig
 from module import log, context
 from module import playerCache
 from module.playerCache import PlayerCache
 from module.tools import YggdrasilServer
 
-
-class Item(BaseModel):
-    data: Any # 使用Any类型来表示data字段可以是任意类型的数据
 
 
 app = FastAPI()
@@ -24,13 +21,19 @@ def read_root():
     return {"Hello": "World"}
 
 @app.post("/api/profiles/minecraft")
-def profiles_minecraft(req_body: Item = Body(...)):
+def profiles_minecraft(req_body:List[str]):
     log.info(f"Server try to get PlayerInfo req = {str(req_body)}")
     players:list = list(req_body)
     server2player_group:dict = dict()
+    try_offical_list:list = list()
     #? 服务器pid对应的玩家组
     for player in players:
-        server_pid:int = context.player_cache.get(player)
+        try:
+            server_pid:int = context.player_cache.get(player)
+        except:
+            log.warning(f"服务器所查询玩家尚未在玩家缓存中找到 将尝试根据默认顺序查询")
+            try_offical_list.append(player)
+            continue
         if(isinstance (server2player_group[server_pid],list)):
             server2player_group[server_pid] += [player]
         else:
@@ -57,9 +60,32 @@ def profiles_minecraft(req_body: Item = Body(...)):
             responses.append(response)
         else:
             log.error(f"Can't get PlayerData from {server.name}")
+    #? 完成玩家缓存内数据查询 下面为未在缓存内的玩家的默认顺序查询
+    for server in context.YggdrasilServers:
+        url = server.profile_api
+        log.debug(try_offical_list)
+        data = json.dumps(try_offical_list)
+        log.info(f"Url = {url} Data = {data}")
+        if(server.proxies != None):
+            if(server.port != None):
+                response = requests.post(url,data=data,proxies=server.proxies,timeout=server.timeout,port=server.port)
+            else:
+                response = requests.post(url,data=data,proxies=server.proxies,timeout=server.timeout)
+        else:
+            if(server.proxies != None):
+                response = requests.post(url,data=data,timeout=server.timeout,port=server.port)
+            else:
+                response = requests.post(url,data=data,timeout=server.timeout)
+        #? 向上游服务器发送请求 请求玩家数据
+        if response.status_code == 200:
+            log.success(f"Get PlayerData from {server.name}")
+            responses.append(response)
+            break
+        else:
+            log.error(f"Can't get PlayerData from {server.name}")
     #? 至此完成所有上游服务器的请求 下面为合并请求数据
     neo_response_data:list = list()
-    for requests in responses:
+    for __requests in responses:
         player_ls:list = response.json()
         for __player in player_ls:
             neo_response_data.append(__player)

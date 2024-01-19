@@ -1,7 +1,8 @@
 import json
+from pydantic import BaseModel
 import requests
 
-from fastapi import FastAPI, Query, Response
+from fastapi import Body, FastAPI, Query, Response
 from typing import Any
 from module import loadConfig
 from module import log, context
@@ -9,6 +10,9 @@ from module import playerCache
 from module.playerCache import PlayerCache
 from module.tools import YggdrasilServer
 
+
+class Item(BaseModel):
+    data: Any # 使用Any类型来表示data字段可以是任意类型的数据
 
 
 app = FastAPI()
@@ -20,7 +24,7 @@ def read_root():
     return {"Hello": "World"}
 
 @app.post("/api/profiles/minecraft")
-def profiles_minecraft(req_body: Any):
+def profiles_minecraft(req_body: Item = Body(...)):
     log.info(f"Server try to get PlayerInfo req = {str(req_body)}")
     players:list = list(req_body)
     server2player_group:dict = dict()

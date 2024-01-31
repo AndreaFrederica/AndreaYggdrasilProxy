@@ -27,10 +27,13 @@ class PlayerCache:
         pass
     def __getattr__(self, __key: str) -> Any:
         #? 处理属性不存在的情况，抛出一个 AttributeError 异常
-        if __key not in self.player_data:
+        if __key not in self.player_data.keys():
             raise AttributeError(__key)
         return self.get(__key)
     def getTimestamp(self, __key) -> int:
+        #? 处理属性不存在的情况，抛出一个 AttributeError 异常
+        if __key not in self.player_data.keys():
+            raise AttributeError(__key)
         return self.key_timestamp(__key)
     def gc(self) -> None:
         timestamp = int(time.time())
@@ -41,7 +44,12 @@ class PlayerCache:
                 del self.player_data[key]
     def gcTask(self) -> None:
         while(True):
-            self.gc()
+            #? 加个 try省的GC进程炸了
+            try:
+                self.gc()
+            except Exception:
+                log.error(Exception)
+                log.warning(f"PlayerCache : {self.player_data} {self.key_timestamp}")
             #log.debug(f"完成PlayerDataCacheGC PlayerCache : {self.player_data}")
             time.sleep(60)
 

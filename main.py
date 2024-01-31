@@ -1,15 +1,16 @@
 import json
+import signal
 from pydantic import BaseModel
 import requests
 
 from fastapi import Body, FastAPI, Query, Response
 from typing import Any, List
-from module import loadConfig
+from module import loadConfig, neoRequests
 from module import log, context
 from module import playerCache
 from module.playerCache import PlayerCache
 from module.tools import YggdrasilServer
-
+from module.errorCollectionTools import tryFunction
 
 
 app = FastAPI()
@@ -17,10 +18,12 @@ app = FastAPI()
 
 
 @app.get("/")
+@tryFunction
 def read_root():
     return {"Hello": "World"}
 
 @app.post("/api/profiles/minecraft")
+@tryFunction
 def profiles_minecraft(req_body:List[str]):
     log.info(f"Server try to get PlayerInfo req = {str(req_body)}")
     players:list = list(req_body)
@@ -44,16 +47,7 @@ def profiles_minecraft(req_body:List[str]):
         url = server.profile_api
         data=json.dumps(server2player_group[server_pid])
         log.info(f"Url = {url} Data = {data}")
-        if(server.proxies != None):
-            if(server.port != None):
-                response = requests.post(url,data=data,proxies=server.proxies,timeout=server.timeout,port=server.port)
-            else:
-                response = requests.post(url,data=data,proxies=server.proxies,timeout=server.timeout)
-        else:
-            if(server.proxies != None):
-                response = requests.post(url,data=data,timeout=server.timeout,port=server.port)
-            else:
-                response = requests.post(url,data=data,timeout=server.timeout)
+        response = neoRequests.post(url,data=data,proxies=server.proxies,timeout=server.timeout,port=server.port)
         #? 向上游服务器发送请求 请求玩家数据
         if response.status_code == 200:
             log.success(f"Get PlayerData from {server.name}")
@@ -66,16 +60,7 @@ def profiles_minecraft(req_body:List[str]):
         log.debug(try_offical_list)
         data = json.dumps(try_offical_list)
         log.info(f"Url = {url} Data = {data}")
-        if(server.proxies != None):
-            if(server.port != None):
-                response = requests.post(url,data=data,proxies=server.proxies,timeout=server.timeout,port=server.port)
-            else:
-                response = requests.post(url,data=data,proxies=server.proxies,timeout=server.timeout)
-        else:
-            if(server.proxies != None):
-                response = requests.post(url,data=data,timeout=server.timeout,port=server.port)
-            else:
-                response = requests.post(url,data=data,timeout=server.timeout)
+        response = neoRequests.post(url,data=data,proxies=server.proxies,timeout=server.timeout,port=server.port)
         #? 向上游服务器发送请求 请求玩家数据
         if response.status_code == 200:
             log.success(f"Get PlayerData from {server.name}")
@@ -103,16 +88,7 @@ def has_joined(
     for server in context.YggdrasilServers:
         url = (f"{server.url}/session/minecraft/hasJoined?username={username}&serverId={serverId}")
         log.info(url)
-        if(server.proxies != None):
-            if(server.port != None):
-                response = requests.get(url,proxies=server.proxies,timeout=server.timeout,port=server.port)
-            else:
-                response = requests.get(url,proxies=server.proxies,timeout=server.timeout)
-        else:
-            if(server.proxies != None):
-                response = requests.get(url,timeout=server.timeout,port=server.port)
-            else:
-                response = requests.get(url,timeout=server.timeout)
+        response = neoRequests.get(url,proxies=server.proxies,timeout=server.timeout,port=server.port)
         #! 好几次修正堆得屎山 别学
         #? 判断响应的状态码是否为 200，表示成功
         if response.status_code == 200:

@@ -1,3 +1,4 @@
+import sys
 from module import context, loadConfig, log, playerCache
 loadConfig.init()
 log.init()
@@ -19,6 +20,6 @@ if __name__ == "__main__":
         except KeyboardInterrupt:
             log.warning("\nApplication exit!")
         except Exception:
-            log.error(Exception)
+            log.error(*sys.exc_info())
     else:
         raise ValueError("CONFIG NOT ENABLE")

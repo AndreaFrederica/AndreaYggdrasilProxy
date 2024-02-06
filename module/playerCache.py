@@ -1,3 +1,4 @@
+import sys
 from typing import Any
 import time
 import threading
@@ -15,6 +16,7 @@ class PlayerCache:
         object.__setattr__(self, 'key_timestamp', dict())
         #? 记录下每个KV的时间戳 以便回收
     def set(self, __key: str, __value: Any ) -> None:
+        #? 定义Java风格的赋值函数 避免混淆
         self.player_data[__key] = __value
         self.key_timestamp[__key] = int(time.time())
     def get(self, __key: str) -> None:
@@ -48,7 +50,7 @@ class PlayerCache:
             try:
                 self.gc()
             except Exception:
-                log.error(Exception)
+                log.error(*sys.exc_info())
                 log.warning(f"PlayerCache : {self.player_data} {self.key_timestamp}")
             #log.debug(f"完成PlayerDataCacheGC PlayerCache : {self.player_data}")
             time.sleep(60)

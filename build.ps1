@@ -19,6 +19,14 @@ if(Test-Path("./$buildPath/$nuitkaBuildTarget")){
     Remove-Item("./$buildPath/$nuitkaBuildTarget")
 }
 
-nuitka --follow-imports --standalone --onefile --show-memory  --show-progress --include-package=requests --output-dir=$buildPath $sourceFile
+#? 保证奇怪的兼容性
+$output = python3 -m nuitka
+# 判断输出的长度是否大于 100
+if ($output.Length -gt 100) {
+    python3 -m nuitka --follow-imports --standalone --onefile --show-memory  --show-progress --include-package=requests --output-dir=$buildPath $sourceFile
+} else {
+    nuitka --follow-imports --standalone --onefile --show-memory  --show-progress --include-package=requests --output-dir=$buildPath $sourceFile
+}
+
 
 Move-Item ./$buildPath/$nuitkaBuildTarget ./$buildPath/$outputName

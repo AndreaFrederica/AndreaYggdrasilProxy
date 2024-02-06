@@ -70,14 +70,16 @@ def profiles_minecraft(req_body:List[str]):
             log.error(f"Can't get PlayerData from {server.name}")
     #? 至此完成所有上游服务器的请求 下面为合并请求数据
     neo_response_data:list = list()
+    player_ls:list = list()
     for __requests in responses:
-        player_ls:list = response.json()
+        player_ls.append(__requests.json())
         for __player in player_ls:
             neo_response_data.append(__player)
     log.info(f"All PlayerData = {str(neo_response_data)}")
     return neo_response_data
 
 @app.get("/sessionserver/session/minecraft/hasJoined")
+@tryFunction
 def has_joined(
     # 从查询参数中获取 username 和 serverId 的值，使用 Query 类来设置一些校验规则
     username: str = Query(..., min_length=3, max_length=16, pattern=r"^([a-zA-Z0-9_]+)$"),

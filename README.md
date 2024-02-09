@@ -61,31 +61,53 @@ Config.py只保存编码格式 请注意
     *配置文件范例*
     
     ```json5
-        {
+    {
         //* AndreaYggdrasilProxy
+        //! YAP/AYP 目前不计划支持Https功能 请使用 Nginx 添加Https支持
+        //! YAP/APY 使用Json5格式的配置文件
+
+        //? 启用代理服务
         Enable : true,
-        Log : false,
+        //? 保存Log到Log文件中
+        Log: false,
+        //? 监听的IP
         IP : "0.0.0.0",
+        // ? 监听的端口
         Port : 32217,
         YggdrasilServers : [
             {
-                //! Mojang 官方验证服务器
+                //! Mojang 官方验证服务器 受代理的
                 //? 一般来说官方服务器优先级最高 但是你可以不用官方验证服务器 直接注释掉即可
                 Level : 0,
-                Name: "Mojang",
+                Name: "Mojang_Proxied",
                 //! 服务器等级 越小优先级越高
-                Url : "https://sessionserver.mojang.com"
+                Url : "https://sessionserver.mojang.com",
+                //? 可以独立为某个服务器配置代理服务 建议使用Http代理
+                    Proxies : {
+                    'http': 'http://127.0.0.1:7890',
+                    'https': 'http://127.0.0.1:7890'
+                }
             },
             {
-                //! 第三方验证服务器案例 LittleSkin
+                //! LittleSkin
+                //? Blessing Skin Server 标准 Yggdrasil 配置规范
                 Level : 1,
                 Name: "LittleSkin",
                 //! 注意这个URL格式! 和大部分皮肤站提供的不太一样
                 //? 多了    /sessionserver  一截
-                Url : "https://littleskin.cn/api/yggdrasil/sessionserver"
-            }
+                Url : "https://littleskin.cn/api/yggdrasil/sessionserver",
+                //? ProfileAPI 支持尚未全部完成 目前为可选字段 不配置该字段YAP会自动推断
+                ProfileAPI : "https://littleskin.cn/api/profiles/minecraft"
+            },
+                    {
+                //! Mojang 官方验证服务器
+                Level : 99,
+                Name: "Mojang",
+                Url : "https://sessionserver.mojang.com",
+            },
         ]
     }
+
     ```
 
 
@@ -103,12 +125,3 @@ Config.py只保存编码格式 请注意
 4.  新建 Pull Request
 5.  发邮件催我
 
-
-#### 特技
-
-1.  使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2.  Gitee 官方博客 [blog.gitee.com](https://blog.gitee.com)
-3.  你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解 Gitee 上的优秀开源项目
-4.  [GVP](https://gitee.com/gvp) 全称是 Gitee 最有价值开源项目，是综合评定出的优秀开源项目
-5.  Gitee 官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6.  Gitee 封面人物是一档用来展示 Gitee 会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
